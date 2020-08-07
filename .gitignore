@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# folder config from idea(CLion)
+.idea/
+cmake-build-debug/
+
+# folder config from idea(CLion)
+.idea/
+cmake-build-debug/
