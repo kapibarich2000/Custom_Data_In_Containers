@@ -15,7 +15,7 @@
 
 
 void startInVector(); // Vector
-void startInArray();
+void startInArray(); // Array
 void startInList(); // List
 void startInF_list(); // Forward List
 void startInDeque(); // Deque
@@ -30,11 +30,14 @@ struct Product{
     int id;
     double price;
 
+    // Copy constructor  ! no  need !
     Product(const Product& p): id(p.id), price(p.price){}
-    // Product(const Product&& p): id(p.id), price(p.price){}
+
+    // Constructor ! Required !
     Product(int i=0, double p=0): id(i),price(p){}
 
 
+    // operator == ! For unordered containers !
     bool operator == (const Product& p) const {
         if (this->id==p.id ) //and price==p->price
             return true;
@@ -42,10 +45,11 @@ struct Product{
             return false;
     }
 
+    // operator < !  No need  !
     bool operator < (const Product* p) const  {return id < p->id;}
 };
 
-// Functor
+//Functor  ! For unordered containers !
 namespace std {
     template <>
     struct hash<Product>{
@@ -56,10 +60,10 @@ namespace std {
     };
 }
 
-// less<CLASS>
+// less<CLASS> ! For Set and Map ! (not for unordered)
 namespace std {
     template <>
-    struct less<Product>{
+   struct less<Product>{
         bool operator()(const Product &p1,const Product &p2) const
         {
             return p1.id < p2.id;
@@ -75,10 +79,10 @@ int main() {
      startInList();
      startInF_list();
      startInDeque();
-     startInSet();
-     startInMultiMap();
-     startInUnordered_MultiSet();
-     startInUnordered_Map();
+     startInSet();                    //less<CLASS>
+     startInMultiMap();               //less<CLASS>
+     startInUnordered_MultiSet();     // Functor hash    operator ==
+     startInUnordered_Map();          // Functor hash    operator ==
 
     return 0;
 }
